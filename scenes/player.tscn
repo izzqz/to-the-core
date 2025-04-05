@@ -1,17 +1,41 @@
-[gd_scene load_steps=3 format=3 uid="uid://cry565eg4xaqi"]
+[gd_scene load_steps=7 format=3 uid="uid://cry565eg4xaqi"]
 
 [ext_resource type="Script" uid="uid://dxtj6i7m7gltf" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://cj6siiyy0e0d4" path="res://assets/player/player_frame_1.png" id="2_dqkch"]
+[ext_resource type="Texture2D" uid="uid://cst4vcdk6ll8l" path="res://assets/player/player_frame_2.png" id="3_qlg0r"]
+[ext_resource type="Texture2D" uid="uid://df31u1pdwb2a3" path="res://assets/player/player_frame_3.png" id="4_tuyoq"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_u8vuu"]
-size = Vector2(58, 72)
+[sub_resource type="SpriteFrames" id="SpriteFrames_fjrip"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_dqkch")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qlg0r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_tuyoq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dqkch"]
+radius = 27.0
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_3vyb7")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_right = 60.0
-offset_bottom = 80.0
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(33, 55)
+scale = Vector2(0.4325, 0.4325)
+sprite_frames = SubResource("SpriteFrames_fjrip")
+autoplay = "default"
+frame = 2
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(29, 39)
-shape = SubResource("RectangleShape2D_u8vuu")
+position = Vector2(31, 35)
+shape = SubResource("CircleShape2D_dqkch")
