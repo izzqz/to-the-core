@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://bw8x5ot16f4vr"]
+
+[ext_resource type="Texture2D" uid="uid://dgfyuw5bh5ai7" path="res://assets/background.png" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://cry565eg4xaqi" path="res://scenes/player.tscn" id="1_ig7tw"]
+
+[node name="Main" type="Node2D"]
+metadata/_edit_lock_ = true
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(70, 22)
+scale = Vector2(0.549074, 0.549074)
+texture = ExtResource("1_0xm2m")
+offset = Vector2(423, 4178)
+
+[node name="Player" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(229, 96)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+ignore_rotation = false
+limit_left = 0
+limit_top = 0
+limit_right = 648
+limit_smoothed = true
