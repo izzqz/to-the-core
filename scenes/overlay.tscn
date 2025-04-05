@@ -1,22 +1,92 @@
-[gd_scene load_steps=3 format=3 uid="uid://74dbxxifoh4v"]
+[gd_scene load_steps=7 format=3 uid="uid://74dbxxifoh4v"]
+
+[ext_resource type="Script" uid="uid://d1vmupf1oq0y" path="res://scripts/overlay.gd" id="1_d607a"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_14nai"]
 font_size = 100
 
 [sub_resource type="GDScript" id="GDScript_r2eog"]
-script/source = "extends Label
 
-func _ready() -> void:
-	Global.score_changed.connect(_on_score_changed)
-	set_score(Global.score)
+[sub_resource type="Animation" id="Animation_14nai"]
+resource_name = "flash"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1.48847, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
 
-func _on_score_changed(new_score: int) -> void:
-	set_score(new_score)
+[sub_resource type="Animation" id="Animation_d607a"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:color:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect:color:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ColorRect:color:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ColorRect:color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
-func set_score(new_score: int) -> void:
-	var meters = float(new_score) / 100.0  # Use 100.0 to ensure float division
-	text = \"%.1fm\" % meters  # %.1f formats to one decimal place
-"
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r2eog"]
+_data = {
+&"RESET": SubResource("Animation_d607a"),
+&"flash": SubResource("Animation_14nai")
+}
 
 [node name="Overlay" type="Control"]
 layout_mode = 3
@@ -25,6 +95,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_d607a")
 metadata/_edit_use_anchors_ = true
 
 [node name="Score" type="VBoxContainer" parent="."]
@@ -49,3 +120,17 @@ text = "123M"
 label_settings = SubResource("LabelSettings_14nai")
 horizontal_alignment = 1
 script = SubResource("GDScript_r2eog")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_r2eog")
+}

@@ -133,6 +133,7 @@ func game_over() -> void:
 	add_sibling(death_fx)
 	death_fx.global_position = global_position
 	Global.junk_put(death_fx)
+	Global.flash_fx.emit()
 	print("Game Over!")
 
 func _on_colision_detector_area_entered(area: Area2D) -> void:

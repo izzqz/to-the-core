@@ -2,6 +2,7 @@ extends Node
 
 var score := 0
 signal score_changed(new_score: int)
+signal flash_fx
 
 var junk: Array[Node] = []
 
