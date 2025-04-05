@@ -67,7 +67,7 @@ func _physics_process(delta: float) -> void:
 	
 	# Rotate sprite based on interpolated direction
 	$Alive_Animation.rotation_degrees = current_direction * -20
-	Global.add_score(1)
+	Global.add_score(1.1)
 	
 	# Check if player is off screen
 	check_boundaries()

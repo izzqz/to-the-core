@@ -1,49 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://bw8x5ot16f4vr"]
+[gd_scene load_steps=5 format=3 uid="uid://bw8x5ot16f4vr"]
 
 [ext_resource type="Script" uid="uid://bnkgsbtg1px2l" path="res://scripts/game.gd" id="1_1bvp3"]
-[ext_resource type="Texture2D" uid="uid://bh8n8ctg4sg1j" path="res://assets/level_1.png" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://cry565eg4xaqi" path="res://scenes/player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://c3nqa71wje4m8" path="res://scenes/level.tscn" id="2_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://74dbxxifoh4v" path="res://scenes/overlay.tscn" id="4_1bvp3"]
-
-[sub_resource type="GDScript" id="GDScript_1bvp3"]
-script/source = "extends Area2D
-
-func _on_area_entered(area: Area2D) -> void:
-	pass # Replace with function body.
-"
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
-size = Vector2(392.224, 706.761)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_1bvp3")
 metadata/_edit_lock_ = true
 
-[node name="Background" type="Sprite2D" parent="."]
-texture = ExtResource("1_h2yge")
-centered = false
-metadata/_edit_lock_ = true
-
-[node name="Area2D" type="Area2D" parent="Background" groups=["obstacle"]]
-script = SubResource("GDScript_1bvp3")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Area2D" groups=["obstacle"]]
-position = Vector2(155, 794)
-rotation = 0.941394
-shape = SubResource("RectangleShape2D_0xm2m")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Background/Area2D" groups=["obstacle"]]
-position = Vector2(58.0001, 3581)
-rotation = 0.814994
-shape = SubResource("RectangleShape2D_0xm2m")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Background/Area2D" groups=["obstacle"]]
-position = Vector2(1383, 2229)
-rotation = -0.917145
-shape = SubResource("RectangleShape2D_0xm2m")
+[node name="Level" parent="." instance=ExtResource("2_1bvp3")]
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
-position = Vector2(647, 96)
+position = Vector2(720, 150)
 
 [node name="CameraOffset" type="Marker2D" parent="Player"]
 position = Vector2(0, 600)
@@ -60,5 +29,3 @@ position_smoothing_speed = 10.0
 
 [node name="Overlay" parent="CanvasLayer" instance=ExtResource("4_1bvp3")]
 metadata/_edit_lock_ = true
-
-[connection signal="area_entered" from="Background/Area2D" to="Background/Area2D" method="_on_area_entered"]

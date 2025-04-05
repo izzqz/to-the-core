@@ -1,12 +1,12 @@
 extends Node
 
-var score := 0
-signal score_changed(new_score: int)
+var score := 0.0
+signal score_changed(new_score: float)
 signal flash_fx
 
 var junk: Array[Node] = []
 
-func add_score(amount: int) -> void:
+func add_score(amount: float) -> void:
 	score += amount
 	score_changed.emit(score)
 
