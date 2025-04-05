@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bw8x5ot16f4vr"]
+[gd_scene load_steps=6 format=3 uid="uid://bw8x5ot16f4vr"]
 
-[ext_resource type="Texture2D" uid="uid://dgfyuw5bh5ai7" path="res://assets/background.png" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://bnkgsbtg1px2l" path="res://scripts/game.gd" id="1_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://bh8n8ctg4sg1j" path="res://assets/level_1.png" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://cry565eg4xaqi" path="res://scenes/player.tscn" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://pg3ccvcckuel" path="res://scripts/obstacle.gd" id="2_h2yge"]
 
@@ -8,21 +9,31 @@
 size = Vector2(392.224, 706.761)
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_1bvp3")
 metadata/_edit_lock_ = true
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(64.9276, 30.9896)
-scale = Vector2(0.606513, 0.590278)
-texture = ExtResource("1_0xm2m")
+position = Vector2(132.693, -729.221)
+scale = Vector2(0.450838, 0.450838)
+texture = ExtResource("1_h2yge")
 offset = Vector2(423, 4178)
-metadata/_edit_lock_ = true
 
 [node name="Area2D" type="Area2D" parent="Background" groups=["obstacle"]]
 script = ExtResource("2_h2yge")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Area2D" groups=["obstacle"]]
-position = Vector2(69.3678, 2105.8)
+position = Vector2(-125.803, 2453.17)
 rotation = 0.685646
+shape = SubResource("RectangleShape2D_0xm2m")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Background/Area2D" groups=["obstacle"]]
+position = Vector2(1087.3, 3861.72)
+rotation = -0.917145
+shape = SubResource("RectangleShape2D_0xm2m")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Background/Area2D" groups=["obstacle"]]
+position = Vector2(1087.3, 3861.72)
+rotation = -0.917145
 shape = SubResource("RectangleShape2D_0xm2m")
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]

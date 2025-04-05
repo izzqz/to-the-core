@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://cry565eg4xaqi"]
+[gd_scene load_steps=11 format=3 uid="uid://cry565eg4xaqi"]
 
 [ext_resource type="Script" uid="uid://dxtj6i7m7gltf" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://cj6siiyy0e0d4" path="res://assets/player/player_frame_1.png" id="2_dqkch"]
 [ext_resource type="Texture2D" uid="uid://cst4vcdk6ll8l" path="res://assets/player/player_frame_2.png" id="3_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://df31u1pdwb2a3" path="res://assets/player/player_frame_3.png" id="4_tuyoq"]
-[ext_resource type="PackedScene" uid="uid://74dbxxifoh4v" path="res://scenes/overlay.tscn" id="5_qlg0r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dqkch"]
 radius = 27.0
@@ -27,18 +26,97 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qlg0r"]
-radius = 28.0
+radius = 33.0151
+
+[sub_resource type="Animation" id="Animation_dqkch"]
+resource_name = "death"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(33, -0.25, 0, 0, 222.758, 228, -0.5, -38.9141, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(55, -0.25, 0, 0.0666667, -265.219, -192, -0.8, 89.0234, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 3.35103, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+
+[sub_resource type="Animation" id="Animation_qlg0r"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(33, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(55, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tuyoq"]
+_data = {
+&"RESET": SubResource("Animation_qlg0r"),
+&"death": SubResource("Animation_dqkch")
+}
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_3vyb7")
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(31, 35)
 shape = SubResource("CircleShape2D_dqkch")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(33, 55)
-scale = Vector2(0.4325, 0.4325)
+scale = Vector2(0.52125, 0.52125)
 sprite_frames = SubResource("SpriteFrames_fjrip")
 autoplay = "default"
 frame = 2
@@ -47,9 +125,12 @@ frame_progress = 1.0
 [node name="ColisionDetector" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ColisionDetector"]
-position = Vector2(32, 33)
+position = Vector2(41, 45)
 shape = SubResource("CircleShape2D_qlg0r")
 
-[node name="Overlay" parent="." instance=ExtResource("5_qlg0r")]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_tuyoq")
+}
 
 [connection signal="area_entered" from="ColisionDetector" to="." method="_on_colision_detector_area_entered"]
