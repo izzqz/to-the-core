@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=3 uid="uid://74dbxxifoh4v"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_14nai"]
+font_size = 50
+
+[sub_resource type="GDScript" id="GDScript_r2eog"]
+script/source = "extends Label
+
+func _ready() -> void:
+	Global.score_changed.connect(_on_score_changed)
+	text = \"Score: %d\" % Global.score
+
+func _on_score_changed(new_score: int) -> void:
+	text = \"Score: %d\" % new_score
+"
+
+[node name="Overlay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Score" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Score"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Score"]
+layout_mode = 2
+
+[node name="Score" type="Label" parent="Score/CenterContainer"]
+layout_mode = 2
+text = "123M"
+label_settings = SubResource("LabelSettings_14nai")
+script = SubResource("GDScript_r2eog")

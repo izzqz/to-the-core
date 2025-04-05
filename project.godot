@@ -15,12 +15,20 @@ run/main_scene="uid://bw8x5ot16f4vr"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Global="*res://scripts/global.gd"
+
 [display]
 
 window/size/viewport_width=648
 window/size/viewport_height=1152
 window/stretch/aspect="keep_width"
 window/handheld/orientation=1
+
+[global_group]
+
+obstacle="Game over on it"
 
 [input]
 

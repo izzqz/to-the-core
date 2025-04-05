@@ -1,18 +1,20 @@
 extends CharacterBody2D
 
 @export var gravity: float = 400     # Adjust based on desired fall speed
-@export var move_speed: float = 300   # Horizontal movement speed
-@export var MAX_FALL_SPEED: float = 500  # Maximum falling speed
+@export var move_speed: float = 400   # Horizontal movement speed
+@export var MAX_FALL_SPEED: float = 600  # Maximum falling speed
 @export var direction_change_speed: float = 10.0  # How quickly direction changes (higher = faster)
 @export var MAX_CHANGE_SPEED: float = 1800 # Maximum speed after direction change
 @export var MIN_CHANGE_SPEED: float = 500   # Minimum speed right after direction change
 @export var speed_accel_rate: float = 1.5   # How quickly speed increases over time
-@export var time_to_max_speed: float = 1.0  # Time in seconds to reach max speed
+@export var time_to_max_speed: float = 0.5  # Time in seconds to reach max speed
 
 var target_direction: int = 1        # Target direction (1 for right, -1 for left)
 var current_direction: float = 1.0   # Current interpolated direction
 var current_speed: float = move_speed  # Current movement speed
 var direction_timer: float = 0.0     # Timer for tracking how long we've moved in same direction
+
+@onready var colision_shape: CollisionShape2D = $CollisionShape2D
 
 func _physics_process(delta: float) -> void:
 	# Apply gravity to vertical velocity with MAX_FALL_SPEED limit
@@ -49,19 +51,16 @@ func _physics_process(delta: float) -> void:
 	$AnimatedSprite2D.rotation_degrees = current_direction * -20
 
 func _input(event: InputEvent) -> void:
-	# Change target direction on input
 	if event.is_action_pressed("flap"):
 		target_direction *= -1
-		# Reset timer and speed on manual direction change
 		direction_timer = 0.0
 		current_speed = MIN_CHANGE_SPEED
 
-#func _on_body_entered(body: Node) -> void:
-	## Handle collisions with obstacles
-	#if body.is_in_group("obstacle"):
-		#game_over()
-#
-#func game_over() -> void:
-	## Handle game over logic (e.g., reload scene, show menu)
-	#print("Game Over!")
-	#get_tree().reload_current_scene()
+func game_over() -> void:
+	print("Game Over!")
+
+
+func _on_colision_detector_area_entered(area: Area2D) -> void:
+	print(area)
+	if area.is_in_group("obstacle"):
+		game_over()
