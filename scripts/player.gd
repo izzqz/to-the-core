@@ -18,6 +18,7 @@ var direction_timer: float = 0.0     # Timer for tracking how long we've moved i
 
 @onready var colision_shape: CollisionShape2D = $CollisionShape2D
 @onready var is_alive = true
+@onready var viewport_rect = get_viewport_rect()
 
 func _ready() -> void:
 	$Alive_Animation.show()
@@ -62,6 +63,19 @@ func _physics_process(delta: float) -> void:
 	$Alive_Animation.rotation_degrees = current_direction * -20
 	Global.add_score(1)
 	
+	# Check if player is off screen
+	check_boundaries()
+
+func check_boundaries() -> void:
+	if is_alive:
+		var screen_margin = 5
+
+		# Check if player is too far off screen
+		if (position.y > viewport_rect.size.y + screen_margin or  
+			position.y < -screen_margin or  
+			position.x > viewport_rect.size.x + screen_margin or  
+			position.x < -screen_margin):
+			game_over()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("flap"):

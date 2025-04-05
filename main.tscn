@@ -3,8 +3,14 @@
 [ext_resource type="Script" uid="uid://bnkgsbtg1px2l" path="res://scripts/game.gd" id="1_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://bh8n8ctg4sg1j" path="res://assets/level_1.png" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://cry565eg4xaqi" path="res://scenes/player.tscn" id="1_ig7tw"]
-[ext_resource type="Script" uid="uid://pg3ccvcckuel" path="res://scripts/obstacle.gd" id="2_h2yge"]
 [ext_resource type="PackedScene" uid="uid://74dbxxifoh4v" path="res://scenes/overlay.tscn" id="4_1bvp3"]
+
+[sub_resource type="GDScript" id="GDScript_1bvp3"]
+script/source = "extends Area2D
+
+func _on_area_entered(area: Area2D) -> void:
+	pass # Replace with function body.
+"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
 size = Vector2(392.224, 706.761)
@@ -20,7 +26,7 @@ texture = ExtResource("1_h2yge")
 offset = Vector2(423, 4178)
 
 [node name="Area2D" type="Area2D" parent="Background" groups=["obstacle"]]
-script = ExtResource("2_h2yge")
+script = SubResource("GDScript_1bvp3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Area2D" groups=["obstacle"]]
 position = Vector2(-125.803, 2453.17)
