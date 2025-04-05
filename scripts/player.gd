@@ -5,16 +5,16 @@ extends CharacterBody2D
 @export var MAX_FALL_SPEED: float = 600  # Maximum falling speed
 @export var direction_change_speed: float = 10.0  # How quickly direction changes (higher = faster)
 
-@export var MAX_CHANGE_SPEED: float = 1800 # Maximum speed after direction change
-@export var MIN_CHANGE_SPEED: float = 200   # Minimum speed right after direction change
+@export var MAX_VELOCITY: float = 1800 # Maximum velocity in either direction
+@export var MIN_VELOCITY: float = 200   # Minimum velocity after direction change
 
-@export var speed_accel_rate: float = 1.5   # How quickly speed increases over time
-@export var time_to_max_speed: float = 0.5  # Time in seconds to reach max speed
+@export var velocity_increase_rate: float = 4.0   # How quickly velocity increases when moving in that direction
+@export var velocity_decrease_rate: float = 2.0   # How quickly velocity decreases for the opposite direction
 
 var target_direction: int = 1        # Target direction (1 for right, -1 for left)
 var current_direction: float = 1.0   # Current interpolated direction
-var current_speed: float = move_speed  # Current movement speed
-var direction_timer: float = 0.0     # Timer for tracking how long we've moved in same direction
+var current_left_velocity: float = 0.0  # Velocity when moving left
+var current_right_velocity: float = MIN_VELOCITY  # Velocity when moving right
 var death_time: float = 0.0          # Timer to track death animation progress
 var screen_center_x: float = 0.0     # Horizontal center of the screen
 
@@ -43,24 +43,31 @@ func _physics_process(delta: float) -> void:
 	var prev_direction = current_direction
 	current_direction = lerp(current_direction, float(target_direction), direction_change_speed * delta)
 	
+	# Update velocities based on current direction
+	if target_direction > 0:  # Moving right
+		# Increase right velocity
+		current_right_velocity = min(current_right_velocity + velocity_increase_rate * delta * MAX_VELOCITY, MAX_VELOCITY)
+		# Decrease left velocity
+		current_left_velocity = max(current_left_velocity - velocity_decrease_rate * delta * MAX_VELOCITY, 0)
+	else:  # Moving left
+		# Increase left velocity
+		current_left_velocity = min(current_left_velocity + velocity_increase_rate * delta * MAX_VELOCITY, MAX_VELOCITY)
+		# Decrease right velocity
+		current_right_velocity = max(current_right_velocity - velocity_decrease_rate * delta * MAX_VELOCITY, 0)
+	
 	# Detect direction change (when sign flips)
 	if sign(prev_direction) != sign(current_direction):
-		# Reset timer and reduce speed when direction changes
-		direction_timer = 0.0
-		current_speed = MIN_CHANGE_SPEED
-	else:
-		# Increase timer when moving in same direction
-		direction_timer += delta
-		
-		# Gradually increase speed over time until reaching maximum
-		if direction_timer < time_to_max_speed:
-			var t = direction_timer / time_to_max_speed  # Normalized time (0 to 1)
-			current_speed = lerp(MIN_CHANGE_SPEED, MAX_CHANGE_SPEED, t)
-		else:
-			current_speed = MAX_CHANGE_SPEED
+		# Reset velocities when direction changes
+		if target_direction > 0:  # Changed to right
+			current_right_velocity = MIN_VELOCITY
+		else:  # Changed to left
+			current_left_velocity = MIN_VELOCITY
 	
-	# Set horizontal velocity based on interpolated direction and current speed
-	velocity.x = current_direction * current_speed
+	# Set horizontal velocity based on direction and corresponding velocity
+	if current_direction > 0:
+		velocity.x = current_right_velocity * current_direction
+	else:
+		velocity.x = current_left_velocity * current_direction
 	
 	# Move the character and handle collisions
 	move_and_slide()
@@ -107,14 +114,17 @@ func check_boundaries() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("flap"):
 		target_direction *= -1
-		direction_timer = 0.0
-		current_speed = MIN_CHANGE_SPEED
+		if target_direction > 0:
+			current_right_velocity = MIN_VELOCITY
+		else:
+			current_left_velocity = MIN_VELOCITY
 		if not is_alive:
 			restart()
 
 func restart() -> void:
-	current_speed = 0
 	current_direction = 1
+	current_left_velocity = 0
+	current_right_velocity = MIN_VELOCITY
 	is_alive = true
 	death_time = 0.0
 	Global.reset_score()
