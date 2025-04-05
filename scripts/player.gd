@@ -99,9 +99,7 @@ func check_boundaries() -> void:
 		var screen_margin = 5
 		
 		# Check if player is too far off screen
-		if (position.y > viewport_rect.size.y + screen_margin or  
-			position.y < -screen_margin or  
-			position.x > viewport_rect.size.x + screen_margin or  
+		if (position.x > viewport_rect.size.x + screen_margin or  
 			position.x < -screen_margin):
 			game_over()
 

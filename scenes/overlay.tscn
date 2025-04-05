@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://74dbxxifoh4v"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_14nai"]
-font_size = 50
+font_size = 100
 
 [sub_resource type="GDScript" id="GDScript_r2eog"]
 script/source = "extends Label
@@ -21,6 +21,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="Score" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -29,6 +30,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="Score"]
 custom_minimum_size = Vector2(0, 100)

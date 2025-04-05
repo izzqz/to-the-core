@@ -27,7 +27,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qlg0r"]
-radius = 33.0151
+radius = 56.3205
 
 [sub_resource type="Animation" id="Animation_dqkch"]
 resource_name = "death"
@@ -117,17 +117,14 @@ shape = SubResource("CircleShape2D_dqkch")
 
 [node name="Alive_Animation" type="AnimatedSprite2D" parent="."]
 position = Vector2(33, 55)
-scale = Vector2(0.52125, 0.52125)
 sprite_frames = SubResource("SpriteFrames_fjrip")
 autoplay = "default"
 frame = 2
 frame_progress = 1.0
 
 [node name="Dead_Sprite" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(37, 46)
 rotation = 2.01052
-scale = Vector2(0.54, 0.54)
 texture = ExtResource("5_qlg0r")
 
 [node name="ColisionDetector" type="Area2D" parent="."]
