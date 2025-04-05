@@ -2,25 +2,33 @@ extends CharacterBody2D
 
 @export var gravity: float = 400     # Adjust based on desired fall speed
 @export var move_speed: float = 300   # Horizontal movement speed
-var direction: int = 1                 # 1 for right, -1 for left
+@export var MAX_FALL_SPEED: float = 500  # Maximum falling speed
+@export var direction_change_speed: float = 10.0  # How quickly direction changes (higher = faster)
+
+var target_direction: int = 1        # Target direction (1 for right, -1 for left)
+var current_direction: float = 1.0   # Current interpolated direction
 
 func _physics_process(delta: float) -> void:
-	# Apply gravity to vertical velocity
+	# Apply gravity to vertical velocity with MAX_FALL_SPEED limit
 	velocity.y += gravity * delta
+	velocity.y = min(velocity.y, MAX_FALL_SPEED)
 	
-	# Set horizontal velocity based on direction
-	velocity.x = direction * move_speed
+	# Smoothly interpolate direction
+	current_direction = lerp(current_direction, float(target_direction), direction_change_speed * delta)
+	
+	# Set horizontal velocity based on interpolated direction
+	velocity.x = current_direction * move_speed
 	
 	# Move the character and handle collisions
 	move_and_slide()
 	
-	# Rotate sprite based on direction (e.g., 30 degrees tilt)
-	$ColorRect.rotation_degrees = direction * 30
+	# Rotate sprite based on interpolated direction
+	$ColorRect.rotation_degrees = current_direction * 30
 
 func _input(event: InputEvent) -> void:
-	# Flip direction on input
+	# Change target direction on input
 	if event.is_action_pressed("flap"):
-		direction *= -1
+		target_direction *= -1
 
 #func _on_body_entered(body: Node) -> void:
 	## Handle collisions with obstacles
