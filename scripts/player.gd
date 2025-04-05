@@ -15,6 +15,8 @@ var target_direction: int = 1        # Target direction (1 for right, -1 for lef
 var current_direction: float = 1.0   # Current interpolated direction
 var current_speed: float = move_speed  # Current movement speed
 var direction_timer: float = 0.0     # Timer for tracking how long we've moved in same direction
+var death_time: float = 0.0          # Timer to track death animation progress
+var screen_center_x: float = 0.0     # Horizontal center of the screen
 
 @onready var colision_shape: CollisionShape2D = $CollisionShape2D
 @onready var is_alive = true
@@ -24,11 +26,14 @@ func _ready() -> void:
 	$Alive_Animation.show()
 	$Dead_Sprite.hide()
 	$_.hide()
+	screen_center_x = viewport_rect.size.x / 2
 
 func _physics_process(delta: float) -> void:
 	if not is_alive:
-		position.y += -1.5
+		# Handle dead player movement
+		handle_death_movement(delta)
 		return
+		
 	# Apply gravity to vertical velocity with MAX_FALL_SPEED limit
 	velocity.y += gravity * delta
 	velocity.y = min(velocity.y, MAX_FALL_SPEED)
@@ -66,10 +71,33 @@ func _physics_process(delta: float) -> void:
 	# Check if player is off screen
 	check_boundaries()
 
+func handle_death_movement(delta: float) -> void:
+	# Increment death timer
+	death_time += delta
+	
+	# Vertical movement (float upward)
+	position.y += -1.5
+	
+	# Calculate distance to horizontal center
+	var distance_to_center = screen_center_x - position.x
+	
+	# Curvy movement to center (fast then slow)
+	# Using ease_out function: starts fast, then slows down
+	var t = min(death_time * 0.7, 1.0)  # Scale time for animation speed
+	var ease_factor = 1.0 - (1.0 - t) * (1.0 - t)  # Quadratic ease out
+	
+	# Move horizontally toward center
+	position.x += distance_to_center * ease_factor * delta * 2.0
+	
+	# Ensure death sprite is visible
+	if not $Dead_Sprite.visible:
+		$Dead_Sprite.show()
+		$Alive_Animation.hide()
+
 func check_boundaries() -> void:
 	if is_alive:
 		var screen_margin = 5
-
+		
 		# Check if player is too far off screen
 		if (position.y > viewport_rect.size.y + screen_margin or  
 			position.y < -screen_margin or  
@@ -87,6 +115,7 @@ func _input(event: InputEvent) -> void:
 
 func restart() -> void:
 	is_alive = true
+	death_time = 0.0
 	Global.reset_score()
 	$Alive_Animation.show()
 	$Dead_Sprite.hide()
@@ -95,6 +124,7 @@ func restart() -> void:
 
 func game_over() -> void:
 	is_alive = false
+	death_time = 0.0
 	play_dead()
 	print("Game Over!")
 
