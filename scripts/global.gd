@@ -3,6 +3,8 @@ extends Node
 var score := 0
 signal score_changed(new_score: int)
 
+var junk: Array[Node] = []
+
 func add_score(amount: int) -> void:
 	score += amount
 	score_changed.emit(score)
@@ -10,3 +12,12 @@ func add_score(amount: int) -> void:
 func reset_score() -> void:
 	score = 0
 	score_changed.emit(score)
+
+func junk_put(node: Node) -> void:
+	junk.push_front(node)
+
+func cleanup() -> void:
+	for node in junk:
+		node.queue_free()
+
+	junk = []

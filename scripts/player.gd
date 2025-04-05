@@ -21,6 +21,7 @@ var screen_center_x: float = 0.0     # Horizontal center of the screen
 @onready var colision_shape: CollisionShape2D = $CollisionShape2D
 @onready var is_alive = true
 @onready var viewport_rect = get_viewport_rect()
+@onready var death_fx_scene = preload('res://scenes/stool_fx.tscn')
 
 func _ready() -> void:
 	$Alive_Animation.show()
@@ -112,9 +113,12 @@ func _input(event: InputEvent) -> void:
 			restart()
 
 func restart() -> void:
+	current_speed = 0
+	current_direction = 1
 	is_alive = true
 	death_time = 0.0
 	Global.reset_score()
+	Global.cleanup()
 	$Alive_Animation.show()
 	$Dead_Sprite.hide()
 	$AnimationPlayer.play("RESET")
@@ -123,7 +127,11 @@ func restart() -> void:
 func game_over() -> void:
 	is_alive = false
 	death_time = 0.0
+	velocity = Vector2(0, 0)
 	play_dead()
+	var death_fx = death_fx_scene.instantiate()
+	add_child(death_fx)
+	Global.junk_put(death_fx)
 	print("Game Over!")
 
 func _on_colision_detector_area_entered(area: Area2D) -> void:
