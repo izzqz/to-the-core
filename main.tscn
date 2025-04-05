@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bw8x5ot16f4vr"]
+[gd_scene load_steps=7 format=3 uid="uid://bw8x5ot16f4vr"]
 
 [ext_resource type="Script" uid="uid://bnkgsbtg1px2l" path="res://scripts/game.gd" id="1_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://bh8n8ctg4sg1j" path="res://assets/level_1.png" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://cry565eg4xaqi" path="res://scenes/player.tscn" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://pg3ccvcckuel" path="res://scripts/obstacle.gd" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://74dbxxifoh4v" path="res://scenes/overlay.tscn" id="4_1bvp3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
 size = Vector2(392.224, 706.761)
@@ -49,5 +50,18 @@ limit_top = 0
 limit_right = 648
 limit_smoothed = true
 position_smoothing_speed = 10.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Overlay" parent="CanvasLayer" instance=ExtResource("4_1bvp3")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 286.0
+offset_top = 96.0
+offset_right = 286.0
+offset_bottom = 96.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [connection signal="area_entered" from="Background/Area2D" to="Background/Area2D" method="_on_area_entered"]

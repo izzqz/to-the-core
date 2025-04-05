@@ -19,8 +19,14 @@ var direction_timer: float = 0.0     # Timer for tracking how long we've moved i
 @onready var colision_shape: CollisionShape2D = $CollisionShape2D
 @onready var is_alive = true
 
+func _ready() -> void:
+	$Alive_Animation.show()
+	$Dead_Sprite.hide()
+	$_.hide()
+
 func _physics_process(delta: float) -> void:
 	if not is_alive:
+		position.y += -1.5
 		return
 	# Apply gravity to vertical velocity with MAX_FALL_SPEED limit
 	velocity.y += gravity * delta
@@ -53,7 +59,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	# Rotate sprite based on interpolated direction
-	$AnimatedSprite2D.rotation_degrees = current_direction * -20
+	$Alive_Animation.rotation_degrees = current_direction * -20
 	Global.add_score(1)
 	
 
@@ -68,8 +74,10 @@ func _input(event: InputEvent) -> void:
 func restart() -> void:
 	is_alive = true
 	Global.reset_score()
+	$Alive_Animation.show()
+	$Dead_Sprite.hide()
 	$AnimationPlayer.play("RESET")
-	$AnimatedSprite2D.play("default")
+	$Alive_Animation.play("default")
 
 func game_over() -> void:
 	is_alive = false
@@ -82,6 +90,8 @@ func _on_colision_detector_area_entered(area: Area2D) -> void:
 		game_over()
 
 func play_dead() -> void:
-	$AnimatedSprite2D.stop()
-	$AnimationPlayer.play("death")
+	$Alive_Animation.hide()
+	$Dead_Sprite.show()
+	$Alive_Animation.stop()
+	$Alive_Animation.play("death")
 	
