@@ -123,14 +123,13 @@ frame = 2
 frame_progress = 1.0
 
 [node name="Dead_Sprite" type="Sprite2D" parent="."]
-position = Vector2(37, 46)
+visible = false
 rotation = 2.01052
 texture = ExtResource("5_qlg0r")
 
 [node name="ColisionDetector" type="Area2D" parent="."]
 
 [node name="Hitbox" type="CollisionShape2D" parent="ColisionDetector"]
-position = Vector2(41, 45)
 shape = SubResource("CircleShape2D_qlg0r")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

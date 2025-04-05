@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
-@export var gravity: float = 200    # Adjust based on desired fall speed
+@export var gravity: float = 2000    # Adjust based on desired fall speed
 @export var move_speed: float = 200   # Horizontal movement speed
-@export var MAX_FALL_SPEED: float = 200  # Maximum falling speed
+@export var MAX_FALL_SPEED: float = 2000  # Maximum falling speed
 @export var direction_change_speed: float = 10.0  # How quickly direction changes (higher = faster)
 
 @export var MAX_CHANGE_SPEED: float = 1800 # Maximum speed after direction change
@@ -130,7 +130,8 @@ func game_over() -> void:
 	velocity = Vector2(0, 0)
 	play_dead()
 	var death_fx = death_fx_scene.instantiate()
-	add_child(death_fx)
+	add_sibling(death_fx)
+	death_fx.global_position = global_position
 	Global.junk_put(death_fx)
 	print("Game Over!")
 

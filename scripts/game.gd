@@ -9,5 +9,5 @@ func _input(event: InputEvent) -> void:
 		$Player.restart()
 
 	if event.is_action_pressed("debug_stop"):
-		$Player.is_alive = false
+		$Player.game_over()
 		

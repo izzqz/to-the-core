@@ -14,9 +14,8 @@ func _on_score_changed(new_score: int) -> void:
 	set_score(new_score)
 
 func set_score(new_score: int) -> void:
-	var meters = int(new_score / 100)
-	
-	text = \"%dm\" % meters
+	var meters = float(new_score) / 100.0  # Use 100.0 to ensure float division
+	text = \"%.1fm\" % meters  # %.1f formats to one decimal place
 "
 
 [node name="Overlay" type="Control"]

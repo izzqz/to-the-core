@@ -6,11 +6,9 @@ extends Node2D
 @export var rotation_min: float = -10.0  # Minimum rotation in radians
 @export var rotation_max: float = 10.0   # Maximum rotation in radians
 
-var screen_center_x: float
 var animations_active: int = 0
 
 func _ready():
-	screen_center_x = get_viewport_rect().size.x / 2
 	animations_active = get_child_count()
 
 	for node in get_children():
@@ -27,14 +25,29 @@ func throw_node(node: Node2D):
 	var initial_position = node.global_position
 	var initial_rotation = node.rotation
 	
-	# Calculate target position (horizontal center with some random spread)
+	# Get the camera and viewport
+	var viewport = get_viewport()
+	var camera = viewport.get_camera_2d()
+	
+	# Calculate screen center in global coordinates
+	var viewport_size = viewport.get_visible_rect().size
+	var screen_center
+	
+	if camera:
+		# If camera exists, use its position to find the actual center of the screen
+		screen_center = camera.get_screen_center_position()
+	else:
+		# Fallback to viewport center if no camera
+		screen_center = Vector2(viewport_size.x / 2, viewport_size.y / 2)
+	
+	# Calculate target position (screen center with some random spread)
 	var random_offset = Vector2(
 		randf_range(-random_spread, random_spread),
 		randf_range(-random_spread, random_spread)
 	)
 	
-	# Use horizontal center but keep original vertical position
-	var target_position = Vector2(screen_center_x, initial_position.y) + random_offset
+	# Use screen center but keep vertical position if needed
+	var target_position = screen_center + random_offset
 	
 	# Generate random final rotation
 	var target_rotation = initial_rotation + randf_range(rotation_min, rotation_max)
