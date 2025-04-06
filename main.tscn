@@ -35,7 +35,7 @@ metadata/_edit_lock_ = true
 [node name="Score" parent="CanvasLayer/Overlay" index="0"]
 mouse_filter = 1
 
-[node name="CenterContainer2" parent="CanvasLayer/Overlay/Score" index="3"]
+[node name="CenterContainer2" parent="CanvasLayer/Overlay/Score" index="5"]
 mouse_filter = 1
 
 [node name="ColorRect" parent="CanvasLayer/Overlay" index="1"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://74dbxxifoh4v"]
+[gd_scene load_steps=8 format=3 uid="uid://74dbxxifoh4v"]
 
 [ext_resource type="Script" uid="uid://d1vmupf1oq0y" path="res://scripts/overlay.gd" id="1_d607a"]
+[ext_resource type="Texture2D" uid="uid://di58oyq45emdr" path="res://assets/player/player_dead.png" id="2_r2eog"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_14nai"]
 font_size = 100
@@ -126,19 +127,48 @@ metadata/_edit_use_anchors_ = true
 [node name="MarginContainer" type="MarginContainer" parent="Score"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+mouse_filter = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="Score"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Score" type="Label" parent="Score/CenterContainer"]
+visible = false
 layout_mode = 2
 text = "123M"
 label_settings = SubResource("LabelSettings_14nai")
 horizontal_alignment = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="Score"]
-custom_minimum_size = Vector2(0, 1500)
+custom_minimum_size = Vector2(0, 1300)
 layout_mode = 2
+mouse_filter = 2
+
+[node name="Skin_Chooser" type="CenterContainer" parent="Score"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Score/Skin_Chooser"]
+layout_mode = 2
+
+[node name="Left_Button" type="Button" parent="Score/Skin_Chooser/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 150
+text = " < "
+
+[node name="Skin_Preview" type="TextureRect" parent="Score/Skin_Chooser/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_r2eog")
+
+[node name="Right_Button" type="Button" parent="Score/Skin_Chooser/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 150
+text = " > "
+
+[node name="MarginContainer3" type="MarginContainer" parent="Score"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+mouse_filter = 2
 
 [node name="CenterContainer2" type="CenterContainer" parent="Score"]
 layout_mode = 2

@@ -12,7 +12,7 @@ enum GameState {
 }
 
 var junk: Array[Node] = []
-
+var current_skin: String = "default"
 var state = GameState.DEATH_SCREEN
 
 func add_score(amount: float) -> void:

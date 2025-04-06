@@ -2,6 +2,7 @@ extends Control
 
 @onready var score_label: Label = $Score/CenterContainer/Score
 @onready var restart_button: Button = $Score/CenterContainer2/Restart_Button
+@onready var skin_chooser: CenterContainer = $Score/Skin_Chooser
 
 var is_death_screen = true
 var is_fist_start = true
@@ -15,10 +16,6 @@ func _ready() -> void:
 	if (is_fist_start):
 		restart_button.text = "Start"
 		is_fist_start = false
-
-func _input(event: InputEvent) -> void:
-	if (event.is_action_pressed("flap") and is_death_screen):
-		_on_restart_button_pressed()
 
 func _on_score_changed(new_score: float) -> void:
 	set_score(new_score)
@@ -35,11 +32,17 @@ func _on_restart_button_pressed() -> void:
 	is_death_screen = false
 	Global.state = Global.GameState.MOVING
 	restart_button.hide()
+	skin_chooser.hide()
 	$AnimationPlayer.play("fadeout")
 
 func _on_game_over() -> void:
 	if (!is_fist_start):
 		restart_button.text = "Restart"
 	restart_button.show()
+	skin_chooser.show()
 	is_death_screen = true
 	Global.state = Global.GameState.DEATH_SCREEN
+
+
+func _on_background_button_down() -> void:
+	_on_restart_button_pressed()
