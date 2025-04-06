@@ -1,8 +1,8 @@
 extends CharacterBody2D
-
-@export var gravity: float = 500    # Adjust based on desired fall speed
+# 500
+@export var gravity: float = 2500    # Adjust based on desired fall speed
 @export var move_speed: float = 200   # Horizontal movement speed
-@export var MAX_FALL_SPEED: float = 600  # Maximum falling speed
+@export var MAX_FALL_SPEED: float = 2600  # Maximum falling speed
 @export var direction_change_speed: float = 10.0  # How quickly direction changes (higher = faster)
 
 @export var MAX_VELOCITY: float = 1800 # Maximum velocity in either direction
@@ -162,8 +162,8 @@ func _on_colision_detector_area_entered(area: Area2D) -> void:
 	if Global.state == Global.GameState.DEATH_SCREEN:
 		return
 
-	if area.is_in_group("obstacle"):
-		game_over()
+	#if area.is_in_group("obstacle"):
+		#game_over()
 
 func play_dead() -> void:
 	$Alive_Animation.hide()
