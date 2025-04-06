@@ -132,7 +132,7 @@ func _input(event: InputEvent) -> void:
 				
 			is_frozen = false
 			return
-		#audio_stream_player.play(0)
+		$Flip_Sound.play()
 		target_direction *= -1
 		if target_direction > 0:
 			current_right_velocity = MIN_VELOCITY
@@ -140,6 +140,7 @@ func _input(event: InputEvent) -> void:
 			current_left_velocity = MIN_VELOCITY
 
 func restart(skin_index: int) -> void:
+	$Revive_Sound.play()
 	var skin = Global.SKINS.get(skin_index)
 	$Alive_Animation.sprite_frames = skin.alive_animation
 	$Dead_Sprite.texture = skin.popa
@@ -164,6 +165,7 @@ func game_over() -> void:
 	death_time = 0.0
 	velocity = Vector2(0, 0)
 	play_dead()
+	$Death_Sound.play()
 	var death_fx = death_fx_scene.instantiate()
 	add_sibling(death_fx)
 	death_fx.global_position = global_position
