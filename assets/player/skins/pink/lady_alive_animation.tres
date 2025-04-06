@@ -1,0 +1,22 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://4cvqedtgkp61"]
+
+[ext_resource type="Texture2D" uid="uid://bp2atq8fg6tp4" path="res://assets/player/skins/pink/pink_anim_1.png" id="1_pp47q"]
+[ext_resource type="Texture2D" uid="uid://rhvquj3ilc2c" path="res://assets/player/skins/pink/pink_anim_2.png" id="2_1nknd"]
+[ext_resource type="Texture2D" uid="uid://d0046k3v1d3sn" path="res://assets/player/skins/pink/pink_anim_3.png" id="3_gkcno"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_pp47q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_1nknd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_gkcno")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]

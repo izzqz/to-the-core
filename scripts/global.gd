@@ -18,6 +18,12 @@ var SKINS := [
 		"preview": preload("res://assets/player/skins/amogus/amgs_skin.png"),
 		"alive_animation": preload("res://assets/player/skins/amogus/amogus_alive_animation.tres"),
 		"popa": preload("res://assets/player/skins/amogus/amgs_popa.png")
+	},
+	{
+		"name": "lady",
+		"preview": preload("res://assets/player/skins/pink/pink_skin.png"),
+		"alive_animation": preload("res://assets/player/skins/pink/lady_alive_animation.tres"),
+		"popa": preload("res://assets/player/skins/pink/pink_popa.png")
 	}
 ]
 

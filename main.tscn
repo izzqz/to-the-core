@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bw8x5ot16f4vr"]
+[gd_scene load_steps=6 format=3 uid="uid://bw8x5ot16f4vr"]
 
 [ext_resource type="Script" uid="uid://bnkgsbtg1px2l" path="res://scripts/game.gd" id="1_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://cry565eg4xaqi" path="res://scenes/player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://c3nqa71wje4m8" path="res://scenes/level.tscn" id="2_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://74dbxxifoh4v" path="res://scenes/overlay.tscn" id="4_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://bmi3e6aenu38t" path="res://assets/levels/level_top.png" id="5_lquwl"]
 
 [node name="Game" type="Node2D"]
 z_index = 1
@@ -12,8 +13,13 @@ metadata/_edit_lock_ = true
 
 [node name="Level" parent="." instance=ExtResource("2_1bvp3")]
 
+[node name="LevelTop" type="Sprite2D" parent="Level"]
+position = Vector2(0, -792)
+texture = ExtResource("5_lquwl")
+centered = false
+
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
-position = Vector2(671, 207)
+position = Vector2(677, 307)
 
 [node name="CameraOffset" type="Marker2D" parent="Player"]
 position = Vector2(0, 600)
@@ -21,7 +27,7 @@ position = Vector2(0, 600)
 [node name="Camera2D" type="Camera2D" parent="Player/CameraOffset"]
 ignore_rotation = false
 limit_left = 0
-limit_top = 0
+limit_top = -792
 limit_right = 1440
 limit_smoothed = true
 position_smoothing_enabled = true

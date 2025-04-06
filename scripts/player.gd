@@ -122,7 +122,7 @@ func _input(event: InputEvent) -> void:
 		return
 
 	if (
-		 #event.is_action_pressed("flap") or
+		 event.is_action_pressed("flap") or
 		(event is InputEventScreenTouch and event.pressed)
 		):
 		if (is_frozen):
