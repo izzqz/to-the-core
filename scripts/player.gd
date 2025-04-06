@@ -25,6 +25,7 @@ var frozen_antibug = 1
 @onready var viewport_rect = get_viewport_rect()
 @onready var death_fx_scene = preload('res://scenes/stool_fx.tscn')
 @onready var start_position = self.position
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 
 func _ready() -> void:
 	$Alive_Animation.show()
@@ -120,7 +121,10 @@ func _input(event: InputEvent) -> void:
 	if Global.state == Global.GameState.DEATH_SCREEN:
 		return
 
-	if event.is_action_pressed("flap"):
+	if (
+		event.is_action_pressed("flap") or
+		(event is InputEventScreenTouch and event.pressed)
+		):
 		if (is_frozen):
 			if (frozen_antibug): # oioioi
 				frozen_antibug = false
@@ -128,7 +132,7 @@ func _input(event: InputEvent) -> void:
 				
 			is_frozen = false
 			return
-			
+		#audio_stream_player.play(0)
 		target_direction *= -1
 		if target_direction > 0:
 			current_right_velocity = MIN_VELOCITY

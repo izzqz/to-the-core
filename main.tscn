@@ -13,7 +13,7 @@ metadata/_edit_lock_ = true
 [node name="Level" parent="." instance=ExtResource("2_1bvp3")]
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
-position = Vector2(720, 150)
+position = Vector2(671, 207)
 
 [node name="CameraOffset" type="Marker2D" parent="Player"]
 position = Vector2(0, 600)
