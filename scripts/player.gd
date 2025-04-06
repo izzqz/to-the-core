@@ -121,7 +121,6 @@ func _input(event: InputEvent) -> void:
 		return
 
 	if event.is_action_pressed("flap"):
-		print(event)
 		if (is_frozen):
 			if (frozen_antibug):
 				frozen_antibug = false

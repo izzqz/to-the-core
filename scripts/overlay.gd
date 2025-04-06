@@ -35,6 +35,7 @@ func _on_restart_button_pressed() -> void:
 	is_death_screen = false
 	Global.state = Global.GameState.MOVING
 	restart_button.hide()
+	$AnimationPlayer.play("fadeout")
 
 func _on_game_over() -> void:
 	if (!is_fist_start):
