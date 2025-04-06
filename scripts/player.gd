@@ -116,6 +116,9 @@ func check_boundaries() -> void:
 			game_over()
 
 func _input(event: InputEvent) -> void:
+	if Global.state == Global.GameState.DEATH_SCREEN:
+		return
+
 	if event.is_action_pressed("flap"):
 		target_direction *= -1
 		if target_direction > 0:
@@ -156,7 +159,9 @@ func game_over() -> void:
 	Global.game_over.emit()
 
 func _on_colision_detector_area_entered(area: Area2D) -> void:
-	print(area)
+	if Global.state == Global.GameState.DEATH_SCREEN:
+		return
+
 	if area.is_in_group("obstacle"):
 		game_over()
 

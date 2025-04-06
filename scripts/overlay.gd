@@ -28,8 +28,10 @@ func play_flash_fx() -> void:
 func _on_restart_button_pressed() -> void:
 	Global.restart_game.emit()
 	is_death_screen = false
+	Global.state = Global.GameState.MOVING
 	restart_button.hide()
 
 func _on_game_over() -> void:
 	restart_button.show()
 	is_death_screen = true
+	Global.state = Global.GameState.DEATH_SCREEN

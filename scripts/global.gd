@@ -6,7 +6,14 @@ signal flash_fx
 signal restart_game
 signal game_over
 
+enum GameState {
+	DEATH_SCREEN,
+	MOVING
+}
+
 var junk: Array[Node] = []
+
+var state = GameState.DEATH_SCREEN
 
 func add_score(amount: float) -> void:
 	score += amount
