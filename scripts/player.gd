@@ -1,9 +1,9 @@
 extends CharacterBody2D
-# 500
-@export var gravity: float = 2500    # Adjust based on desired fall speed
+
+@export var gravity: float = 500   # Adjust based on desired fall speed
 @export var move_speed: float = 200   # Horizontal movement speed
-@export var MAX_FALL_SPEED: float = 2600  # Maximum falling speed
-@export var direction_change_speed: float = 10.0  # How quickly direction changes (higher = faster)
+@export var MAX_FALL_SPEED: float = 600  # Maximum falling speed
+@export var direction_change_speed: float = 8  # How quickly direction changes (higher = faster)
 
 @export var MAX_VELOCITY: float = 1800 # Maximum velocity in either direction
 @export var MIN_VELOCITY: float = 200   # Minimum velocity after direction change
@@ -17,6 +17,7 @@ var current_left_velocity: float = 0.0  # Velocity when moving left
 var current_right_velocity: float = MIN_VELOCITY  # Velocity when moving right
 var death_time: float = 0.0          # Timer to track death animation progress
 var screen_center_x: float = 0.0     # Horizontal center of the screen
+var frozen_antibug = 1
 
 @onready var colision_shape: CollisionShape2D = $CollisionShape2D
 @onready var is_alive = true
@@ -120,23 +121,29 @@ func _input(event: InputEvent) -> void:
 		return
 
 	if event.is_action_pressed("flap"):
+		print(event)
+		if (is_frozen):
+			if (frozen_antibug):
+				frozen_antibug = false
+				return
+				
+			is_frozen = false
+			return
+			
 		target_direction *= -1
 		if target_direction > 0:
 			current_right_velocity = MIN_VELOCITY
 		else:
 			current_left_velocity = MIN_VELOCITY
-		if not is_alive:
-			restart()
-		if is_frozen:
-			is_frozen = false
 
 func restart() -> void:
 	current_direction = 1
-	target_direction = -1
+	target_direction = 1
 	current_left_velocity = 0
 	current_right_velocity = 0
 	is_alive = true
 	is_frozen = true
+	frozen_antibug = true
 	death_time = 0.0
 	self.position = start_position
 	Global.reset_score()
@@ -162,8 +169,8 @@ func _on_colision_detector_area_entered(area: Area2D) -> void:
 	if Global.state == Global.GameState.DEATH_SCREEN:
 		return
 
-	#if area.is_in_group("obstacle"):
-		#game_over()
+	if area.is_in_group("obstacle"):
+		game_over()
 
 func play_dead() -> void:
 	$Alive_Animation.hide()

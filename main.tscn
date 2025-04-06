@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://74dbxxifoh4v" path="res://scenes/overlay.tscn" id="4_1bvp3"]
 
 [node name="Game" type="Node2D"]
+z_index = 1
 script = ExtResource("1_1bvp3")
 metadata/_edit_lock_ = true
 
@@ -23,9 +24,21 @@ limit_left = 0
 limit_top = 0
 limit_right = 1440
 limit_smoothed = true
-position_smoothing_speed = 10.0
+position_smoothing_enabled = true
+position_smoothing_speed = 50.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Overlay" parent="CanvasLayer" instance=ExtResource("4_1bvp3")]
 metadata/_edit_lock_ = true
+
+[node name="Score" parent="CanvasLayer/Overlay" index="0"]
+mouse_filter = 1
+
+[node name="CenterContainer2" parent="CanvasLayer/Overlay/Score" index="3"]
+mouse_filter = 1
+
+[node name="ColorRect" parent="CanvasLayer/Overlay" index="1"]
+mouse_filter = 2
+
+[editable path="CanvasLayer/Overlay"]
