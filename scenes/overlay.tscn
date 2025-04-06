@@ -143,3 +143,5 @@ color = Color(1, 1, 1, 0)
 libraries = {
 &"": SubResource("AnimationLibrary_r2eog")
 }
+
+[connection signal="pressed" from="Score/CenterContainer2/Restart_Button" to="." method="_on_restart_button_pressed"]

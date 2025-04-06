@@ -3,6 +3,8 @@ extends Node
 var score := 0.0
 signal score_changed(new_score: float)
 signal flash_fx
+signal restart_game
+signal game_over
 
 var junk: Array[Node] = []
 

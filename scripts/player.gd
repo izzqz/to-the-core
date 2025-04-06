@@ -8,7 +8,7 @@ extends CharacterBody2D
 @export var MAX_VELOCITY: float = 1800 # Maximum velocity in either direction
 @export var MIN_VELOCITY: float = 200   # Minimum velocity after direction change
 
-@export var velocity_increase_rate: float = 4.0   # How quickly velocity increases when moving in that direction
+@export var velocity_increase_rate: float = 5.0   # How quickly velocity increases when moving in that direction
 @export var velocity_decrease_rate: float = 2.0   # How quickly velocity decreases for the opposite direction
 
 var target_direction: int = 1        # Target direction (1 for right, -1 for left)
@@ -20,8 +20,10 @@ var screen_center_x: float = 0.0     # Horizontal center of the screen
 
 @onready var colision_shape: CollisionShape2D = $CollisionShape2D
 @onready var is_alive = true
+@onready var is_frozen = true
 @onready var viewport_rect = get_viewport_rect()
 @onready var death_fx_scene = preload('res://scenes/stool_fx.tscn')
+@onready var start_position = self.position
 
 func _ready() -> void:
 	$Alive_Animation.show()
@@ -34,7 +36,9 @@ func _physics_process(delta: float) -> void:
 		# Handle dead player movement
 		handle_death_movement(delta)
 		return
-		
+	
+	if is_frozen: return
+	
 	# Apply gravity to vertical velocity with MAX_FALL_SPEED limit
 	velocity.y += gravity * delta
 	velocity.y = min(velocity.y, MAX_FALL_SPEED)
@@ -104,7 +108,7 @@ func handle_death_movement(delta: float) -> void:
 
 func check_boundaries() -> void:
 	if is_alive:
-		var screen_margin = 5
+		var screen_margin = 100
 		
 		# Check if player is too far off screen
 		if (position.x > viewport_rect.size.x + screen_margin or  
@@ -120,13 +124,18 @@ func _input(event: InputEvent) -> void:
 			current_left_velocity = MIN_VELOCITY
 		if not is_alive:
 			restart()
+		if is_frozen:
+			is_frozen = false
 
 func restart() -> void:
 	current_direction = 1
+	target_direction = -1
 	current_left_velocity = 0
-	current_right_velocity = MIN_VELOCITY
+	current_right_velocity = 0
 	is_alive = true
+	is_frozen = true
 	death_time = 0.0
+	self.position = start_position
 	Global.reset_score()
 	Global.cleanup()
 	$Alive_Animation.show()
@@ -144,7 +153,7 @@ func game_over() -> void:
 	death_fx.global_position = global_position
 	Global.junk_put(death_fx)
 	Global.flash_fx.emit()
-	print("Game Over!")
+	Global.game_over.emit()
 
 func _on_colision_detector_area_entered(area: Area2D) -> void:
 	print(area)
