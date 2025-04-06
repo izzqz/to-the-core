@@ -6,13 +6,28 @@ signal flash_fx
 signal restart_game
 signal game_over
 
+var SKINS := [
+	{
+		"name": "default",
+		"preview": preload("res://assets/player/skins/bozhidar/player_skin.png"),
+		"alive_animation": preload("res://assets/player/skins/bozhidar/default_alive_animation.tres"),
+		"popa": preload("res://assets/player/skins/bozhidar/player_popa.png")
+	},
+	{
+		"name": "amogus",
+		"preview": preload("res://assets/player/skins/amogus/amgs_skin.png"),
+		"alive_animation": preload("res://assets/player/skins/amogus/amogus_alive_animation.tres"),
+		"popa": preload("res://assets/player/skins/amogus/amgs_popa.png")
+	}
+]
+
 enum GameState {
 	DEATH_SCREEN,
 	MOVING
 }
 
 var junk: Array[Node] = []
-var current_skin: String = "default"
+var current_skin: int = 0
 var state = GameState.DEATH_SCREEN
 
 func add_score(amount: float) -> void:

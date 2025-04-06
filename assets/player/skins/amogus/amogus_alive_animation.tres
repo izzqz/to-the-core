@@ -1,0 +1,22 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://xy6xa8epil8w"]
+
+[ext_resource type="Texture2D" uid="uid://8g02ao6byv2r" path="res://assets/player/skins/amogus/amgs_anim_1.png" id="1_f87y0"]
+[ext_resource type="Texture2D" uid="uid://dxprurc1d3kih" path="res://assets/player/skins/amogus/amgs_anim_2.png" id="2_w5ysg"]
+[ext_resource type="Texture2D" uid="uid://bttmmetjjk27q" path="res://assets/player/skins/amogus/amgs_anim_3.png" id="3_kfhdv"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_f87y0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_w5ysg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_kfhdv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]

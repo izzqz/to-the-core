@@ -43,6 +43,5 @@ func _on_game_over() -> void:
 	is_death_screen = true
 	Global.state = Global.GameState.DEATH_SCREEN
 
-
 func _on_background_button_down() -> void:
 	_on_restart_button_pressed()

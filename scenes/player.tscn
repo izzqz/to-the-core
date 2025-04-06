@@ -1,81 +1,27 @@
-[gd_scene load_steps=12 format=3 uid="uid://cry565eg4xaqi"]
+[gd_scene load_steps=9 format=3 uid="uid://cry565eg4xaqi"]
 
 [ext_resource type="Script" uid="uid://dxtj6i7m7gltf" path="res://scripts/player.gd" id="1_3vyb7"]
-[ext_resource type="Texture2D" uid="uid://cj6siiyy0e0d4" path="res://assets/player/player_frame_1.png" id="2_dqkch"]
-[ext_resource type="Texture2D" uid="uid://cst4vcdk6ll8l" path="res://assets/player/player_frame_2.png" id="3_qlg0r"]
-[ext_resource type="Texture2D" uid="uid://df31u1pdwb2a3" path="res://assets/player/player_frame_3.png" id="4_tuyoq"]
+[ext_resource type="SpriteFrames" uid="uid://dyh33vvjd8lah" path="res://assets/player/skins/bozhidar/default_alive_animation.tres" id="2_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://di58oyq45emdr" path="res://assets/player/player_dead.png" id="5_qlg0r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dqkch"]
 radius = 27.0
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_fjrip"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_dqkch")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_qlg0r")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_tuyoq")
-}],
-"loop": true,
-"name": &"default",
-"speed": 15.0
-}]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_qlg0r"]
-radius = 56.3205
-
-[sub_resource type="Animation" id="Animation_dqkch"]
-resource_name = "death"
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Alive_Animation:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(33, -0.25, 0, 0, 222.758, 228, -0.5, -38.9141, 0.25, 0),
-"times": PackedFloat32Array(0, 1)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Alive_Animation:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(55, -0.25, 0, 0.0666667, -265.219, -192, -0.8, 89.0234, 0.25, 0),
-"times": PackedFloat32Array(0, 1)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Alive_Animation:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 3.35103, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1)
-}
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qhqgy"]
+radius = 70.0
+height = 250.0
 
 [sub_resource type="Animation" id="Animation_qlg0r"]
 length = 0.001
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Alive_Animation:position:x")
+tracks/0/path = NodePath("Alive_Animation:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(33, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
 tracks/1/type = "bezier"
@@ -92,13 +38,49 @@ tracks/1/keys = {
 tracks/2/type = "bezier"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Alive_Animation:rotation")
+tracks/2/path = NodePath("Alive_Animation:position:x")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(33, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_dqkch"]
+resource_name = "death"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Alive_Animation:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 3.35103, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Alive_Animation:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(55, -0.25, 0, 0.0666667, -265.219, -192, -0.8, 89.0234, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Alive_Animation:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(33, -0.25, 0, 0, 222.758, 228, -0.5, -38.9141, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tuyoq"]
@@ -117,24 +99,24 @@ shape = SubResource("CircleShape2D_dqkch")
 
 [node name="Alive_Animation" type="AnimatedSprite2D" parent="."]
 position = Vector2(33, 55)
-sprite_frames = SubResource("SpriteFrames_fjrip")
+sprite_frames = ExtResource("2_qhqgy")
 autoplay = "default"
-frame = 2
-frame_progress = 1.0
+
+[node name="ColisionDetector" type="Area2D" parent="Alive_Animation"]
+position = Vector2(-33, -55)
+
+[node name="Hitbox" type="CollisionShape2D" parent="Alive_Animation/ColisionDetector"]
+position = Vector2(30, 44)
+shape = SubResource("CapsuleShape2D_qhqgy")
 
 [node name="Dead_Sprite" type="Sprite2D" parent="."]
 visible = false
 rotation = 2.01052
 texture = ExtResource("5_qlg0r")
 
-[node name="ColisionDetector" type="Area2D" parent="."]
-
-[node name="Hitbox" type="CollisionShape2D" parent="ColisionDetector"]
-shape = SubResource("CircleShape2D_qlg0r")
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_tuyoq")
 }
 
-[connection signal="area_entered" from="ColisionDetector" to="." method="_on_colision_detector_area_entered"]
+[connection signal="area_entered" from="Alive_Animation/ColisionDetector" to="." method="_on_colision_detector_area_entered"]

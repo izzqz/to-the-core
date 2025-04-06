@@ -5,5 +5,5 @@ extends Node2D
 func _ready() -> void:
 	Global.restart_game.connect(func():
 		Global.state = Global.GameState.MOVING
-		$Player.restart()
+		$Player.restart(Global.current_skin)
 	)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://74dbxxifoh4v"]
 
 [ext_resource type="Script" uid="uid://d1vmupf1oq0y" path="res://scripts/overlay.gd" id="1_d607a"]
-[ext_resource type="Texture2D" uid="uid://di58oyq45emdr" path="res://assets/player/player_dead.png" id="2_r2eog"]
+[ext_resource type="Script" uid="uid://bvjfmepbhgri4" path="res://scripts/skin_chooser.gd" id="2_sfd0e"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_14nai"]
 font_size = 100
@@ -147,6 +147,7 @@ mouse_filter = 2
 
 [node name="Skin_Chooser" type="CenterContainer" parent="Score"]
 layout_mode = 2
+script = ExtResource("2_sfd0e")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Score/Skin_Chooser"]
 layout_mode = 2
@@ -158,7 +159,7 @@ text = " < "
 
 [node name="Skin_Preview" type="TextureRect" parent="Score/Skin_Chooser/HBoxContainer"]
 layout_mode = 2
-texture = ExtResource("2_r2eog")
+expand_mode = 3
 
 [node name="Right_Button" type="Button" parent="Score/Skin_Chooser/HBoxContainer"]
 layout_mode = 2
@@ -194,4 +195,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_r2eog")
 }
 
+[connection signal="pressed" from="Score/Skin_Chooser/HBoxContainer/Left_Button" to="Score/Skin_Chooser" method="_on_left_button_pressed"]
+[connection signal="pressed" from="Score/Skin_Chooser/HBoxContainer/Right_Button" to="Score/Skin_Chooser" method="_on_right_button_pressed"]
 [connection signal="pressed" from="Score/CenterContainer2/Restart_Button" to="." method="_on_restart_button_pressed"]

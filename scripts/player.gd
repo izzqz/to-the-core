@@ -135,7 +135,11 @@ func _input(event: InputEvent) -> void:
 		else:
 			current_left_velocity = MIN_VELOCITY
 
-func restart() -> void:
+func restart(skin_index: int) -> void:
+	var skin = Global.SKINS.get(skin_index)
+	$Alive_Animation.sprite_frames = skin.alive_animation
+	$Dead_Sprite.texture = skin.popa
+	
 	current_direction = 1
 	target_direction = 1
 	current_left_velocity = 0
