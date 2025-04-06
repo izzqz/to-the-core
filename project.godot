@@ -13,7 +13,10 @@ config_version=5
 config/name="Bozhidar"
 run/main_scene="uid://bw8x5ot16f4vr"
 config/features=PackedStringArray("4.4", "Mobile")
+boot_splash/bg_color=Color(0.32549, 0.709804, 0.882353, 1)
+boot_splash/image="uid://8ndrcyfbys2e"
 config/icon="res://icon.svg"
+boot_splash/minimum_display_time=1000
 
 [autoload]
 
