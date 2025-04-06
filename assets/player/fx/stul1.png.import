@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhlr5w7ngod41"
-path="res://.godot/imported/stool.png-da1e0521df2576fe48d98f0ebb71bd73.ctex"
+uid="uid://bjo0kke3e0ys1"
+path="res://.godot/imported/stul1.png-ecabb65231f41a31dc801a59d5a4576e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player/fx/stool.png"
-dest_files=["res://.godot/imported/stool.png-da1e0521df2576fe48d98f0ebb71bd73.ctex"]
+source_file="res://assets/player/fx/stul1.png"
+dest_files=["res://.godot/imported/stul1.png-ecabb65231f41a31dc801a59d5a4576e.ctex"]
 
 [params]
 
