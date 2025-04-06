@@ -126,9 +126,6 @@ func _input(event: InputEvent) -> void:
 		(event is InputEventScreenTouch and event.pressed)
 		):
 		if (is_frozen):
-			if (frozen_antibug): # oioioi
-				frozen_antibug = false
-				return
 				
 			is_frozen = false
 			return

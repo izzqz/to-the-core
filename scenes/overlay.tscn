@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://74dbxxifoh4v"]
+[gd_scene load_steps=12 format=3 uid="uid://74dbxxifoh4v"]
 
 [ext_resource type="Script" uid="uid://d1vmupf1oq0y" path="res://scripts/overlay.gd" id="1_d607a"]
 [ext_resource type="Script" uid="uid://bvjfmepbhgri4" path="res://scripts/skin_chooser.gd" id="2_sfd0e"]
@@ -7,6 +7,12 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_14nai"]
 font_size = 100
+
+[sub_resource type="InputEventAction" id="InputEventAction_p5j10"]
+action = &"flap"
+
+[sub_resource type="Shortcut" id="Shortcut_0miq5"]
+events = [SubResource("InputEventAction_p5j10")]
 
 [sub_resource type="Animation" id="Animation_d607a"]
 length = 0.001
@@ -194,6 +200,7 @@ mouse_filter = 2
 
 [node name="Restart_Button" type="TextureButton" parent="Score/CenterContainer2"]
 layout_mode = 2
+shortcut = SubResource("Shortcut_0miq5")
 texture_normal = ExtResource("3_sfd0e")
 
 [node name="ColorRect" type="ColorRect" parent="."]
