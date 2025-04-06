@@ -4,12 +4,17 @@ extends Control
 @onready var restart_button: Button = $Score/CenterContainer2/Restart_Button
 
 var is_death_screen = true
+var is_fist_start = true
 
 func _ready() -> void:
 	Global.score_changed.connect(_on_score_changed)
 	Global.flash_fx.connect(play_flash_fx)
 	Global.game_over.connect(_on_game_over)
 	set_score(Global.score)
+	
+	if (is_fist_start):
+		restart_button.text = "Start"
+		is_fist_start = false
 
 func _input(event: InputEvent) -> void:
 	if (event.is_action_pressed("flap") and is_death_screen):
@@ -32,6 +37,8 @@ func _on_restart_button_pressed() -> void:
 	restart_button.hide()
 
 func _on_game_over() -> void:
+	if (!is_fist_start):
+		restart_button.text = "Restart"
 	restart_button.show()
 	is_death_screen = true
 	Global.state = Global.GameState.DEATH_SCREEN
