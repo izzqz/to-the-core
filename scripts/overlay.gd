@@ -1,8 +1,11 @@
 extends Control
 
 @onready var score_label: Label = $Score/CenterContainer/Score
-@onready var restart_button: Button = $Score/CenterContainer2/Restart_Button
 @onready var skin_chooser: CenterContainer = $Score/Skin_Chooser
+@onready var restart_button: TextureButton = $Score/CenterContainer2/Restart_Button
+
+@onready var play_button_texture := preload("res://assets/ui/play.png")
+@onready var restart_button_texture := preload("res://assets/ui/restart.png")
 
 var is_death_screen = true
 var is_fist_start = true
@@ -14,7 +17,7 @@ func _ready() -> void:
 	set_score(Global.score)
 	
 	if (is_fist_start):
-		restart_button.text = "Start"
+		restart_button.texture_normal = play_button_texture
 		is_fist_start = false
 
 func _on_score_changed(new_score: float) -> void:
@@ -37,7 +40,7 @@ func _on_restart_button_pressed() -> void:
 
 func _on_game_over() -> void:
 	if (!is_fist_start):
-		restart_button.text = "Restart"
+		restart_button.texture_normal = restart_button_texture
 	restart_button.show()
 	skin_chooser.show()
 	is_death_screen = true

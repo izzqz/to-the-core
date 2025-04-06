@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://74dbxxifoh4v"]
+[gd_scene load_steps=10 format=3 uid="uid://74dbxxifoh4v"]
 
 [ext_resource type="Script" uid="uid://d1vmupf1oq0y" path="res://scripts/overlay.gd" id="1_d607a"]
 [ext_resource type="Script" uid="uid://bvjfmepbhgri4" path="res://scripts/skin_chooser.gd" id="2_sfd0e"]
+[ext_resource type="Texture2D" uid="uid://cac56i8gkcpqg" path="res://assets/ui/arrow.png" id="3_p5j10"]
+[ext_resource type="Texture2D" uid="uid://capbrosvak57w" path="res://assets/ui/restart.png" id="3_sfd0e"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_14nai"]
 font_size = 100
@@ -151,23 +153,38 @@ script = ExtResource("2_sfd0e")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Score/Skin_Chooser"]
 layout_mode = 2
+alignment = 1
 
-[node name="Left_Button" type="Button" parent="Score/Skin_Chooser/HBoxContainer"]
+[node name="Left_Button" type="TextureButton" parent="Score/Skin_Chooser/HBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 150
-text = " < "
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("3_p5j10")
+flip_h = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Score/Skin_Chooser/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
 
 [node name="Skin_Preview" type="TextureRect" parent="Score/Skin_Chooser/HBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
-expand_mode = 3
+size_flags_horizontal = 4
+size_flags_vertical = 4
+expand_mode = 5
 
-[node name="Right_Button" type="Button" parent="Score/Skin_Chooser/HBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="Score/Skin_Chooser/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 150
-text = " > "
+
+[node name="Right_Button" type="TextureButton" parent="Score/Skin_Chooser/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("3_p5j10")
 
 [node name="MarginContainer3" type="MarginContainer" parent="Score"]
-custom_minimum_size = Vector2(0, 300)
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 mouse_filter = 2
 
@@ -175,11 +192,9 @@ mouse_filter = 2
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Restart_Button" type="Button" parent="Score/CenterContainer2"]
+[node name="Restart_Button" type="TextureButton" parent="Score/CenterContainer2"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 150
-action_mode = 0
-text = "Restart"
+texture_normal = ExtResource("3_sfd0e")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -189,6 +204,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
+metadata/_edit_lock_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

@@ -1,7 +1,7 @@
 extends CenterContainer
 
-@onready var left_button: Button = $HBoxContainer/Left_Button
-@onready var right_button: Button = $HBoxContainer/Right_Button
+@onready var left_button: TextureButton = $HBoxContainer/Left_Button
+@onready var right_button: TextureButton = $HBoxContainer/Right_Button
 @onready var skin_preview: TextureRect = $HBoxContainer/Skin_Preview
 
 var current_skin_index := 0
